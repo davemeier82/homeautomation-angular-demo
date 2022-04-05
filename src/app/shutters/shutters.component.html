@@ -1,0 +1,67 @@
+<p>Rollläden</p>
+
+<table mat-table [dataSource]="rollers$" class="mat-elevation-z8">  
+  <ng-container matColumnDef="label">
+    <th mat-header-cell *matHeaderCellDef>Ort</th>
+    <td mat-cell *matCellDef="let element">{{ element.label }}</td>      
+  </ng-container>
+
+  <ng-container matColumnDef="state">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let element">{{ element.state }}</td>      
+  </ng-container>
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef>Position</th>
+    <td mat-cell *matCellDef="let element">
+    <mat-slider
+      #mySlider
+      thumbLabel
+      [value]="element.position"
+      (change)="changeRollerPosition(element, mySlider.value)"
+      tickInterval="1"
+      step="1"
+      min="0"
+      max="100"
+      aria-label="%">
+    </mat-slider>   </td>  
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Aktionen</th>
+    <td mat-cell *matCellDef="let element">
+      <button *ngIf="element.state !== 'OPENING'"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="open(element)"
+        >
+        <mat-icon aria-label="Side nav toggle icon">arrow_circle_up</mat-icon>
+      </button>
+      <button *ngIf="element.state !== 'IDLE'"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="stop(element)"
+        >
+        <mat-icon aria-label="Side nav toggle icon">stop</mat-icon>
+      </button>
+      <button *ngIf="element.state !== 'CLOSING'"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="close(element)"
+        >
+        <mat-icon aria-label="Side nav toggle icon">arrow_circle_down</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastUpdated">
+    <th mat-header-cell *matHeaderCellDef>Aktualisiert am</th>
+    <td mat-cell *matCellDef="let element">{{element.lastUpdated | date :'d.M.yyyy, H:mm'}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

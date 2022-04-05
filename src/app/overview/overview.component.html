@@ -1,0 +1,39 @@
+<h2>Brennende Lichter</h2>
+<div *ngIf="lights$ | async; let list; else noLight">
+    <div *ngIf="list.length > 0; else noLight">
+        <ul *ngFor="let light of list">
+            <li>{{light}}</li>
+        </ul>
+    </div>
+</div>
+ 
+ <ng-template #noLight>
+   <p>keine</p>
+ </ng-template>
+
+<h2>Offene Fenster und Türen</h2>
+<div *ngIf="windows$ | async; let list; else noWindow">
+    <div *ngIf="list.length > 0; else noWindow">
+        <ul *ngFor="let window of list">
+            <li>{{window}}</li>
+        </ul>
+    </div>
+</div>
+ 
+ <ng-template #noWindow>
+   <p>keine</p>
+ </ng-template>
+ 
+<h2>Storen nicht ganz oben</h2>
+<div *ngIf="rollers$ | async; let list; else noRoller">
+    <div *ngIf="list.length > 0; else noRoller">
+        <ul *ngFor="let roller of list">
+            <li>{{roller}}</li>
+        </ul>
+    </div>
+</div>
+ 
+ <ng-template #noRoller>
+   <p>keine</p>
+ </ng-template>
+ 
