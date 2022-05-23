@@ -1,7 +1,9 @@
 import { ActionReducerMap } from "@ngrx/store";
 import { AppState } from "../app.states";
-import * as fromReducer from './device.reducer';
+import { devicesConfigReducer } from "./device-config.reducer";
+import { deviceReducer } from "./device.reducer";
 
 export const reducers: ActionReducerMap<AppState> = {
-    deviceState: fromReducer.deviceReducer
+    deviceState: deviceReducer,
+    devicesConfigState: devicesConfigReducer
   };

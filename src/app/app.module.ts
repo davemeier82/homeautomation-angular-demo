@@ -21,10 +21,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './reducer/reducers';
 import { WindowsComponent } from './windows/windows.component';
 import { ShuttersComponent } from './shutters/shutters.component';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { OverviewComponent } from './overview/overview.component';
 import { EventEffects } from './effect/event.effects';
 import { OutletsComponent } from './outlets/outlets.component';
+import { PowerComponent } from './power/power.component';
+import { CamerasComponent } from './cameras/cameras.component';
+import { SafePipe } from './pipes/safe.pipe';
+import { DevicesConfigComponent } from './devices-config/devices-config.component';
+import { DevicesConfigEffects } from './effect/device-config.effects';
 
 @NgModule({
   declarations: [
@@ -34,13 +39,17 @@ import { OutletsComponent } from './outlets/outlets.component';
     WindowsComponent,
     ShuttersComponent,
     OverviewComponent,
-    OutletsComponent
+    OutletsComponent,
+    PowerComponent,
+    CamerasComponent,
+    DevicesConfigComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([DeviceEffects, EventEffects]),
+    EffectsModule.forRoot([DeviceEffects, EventEffects, DevicesConfigEffects]),
     AppRoutingModule,
     LayoutModule,
     MatToolbarModule,

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, map, Observable, of, take } from 'rxjs';
+import { map } from 'rxjs';
 import { ChangeDimmingLevel, LoadAllDevices, SwitchRelay } from '../actions/device.actions';
-import { StartEventStream } from '../actions/event.actions';
 import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
 import { StoreService } from '../store/store.service';
 
 export interface LightData {
@@ -30,13 +28,12 @@ export class LightsComponent implements OnInit {
   dataSource = new MatTableDataSource<LightData>()
   displayedColumns: string[] = ['label', 'floor', 'state', 'level', 'lastUpdated'];
 
-  constructor(private storeServie: StoreService, private store: Store<DeviceState>) {
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) {
 
-    storeServie.getDevicesByApplianceIdentifier('light').pipe(
+    storeService.getDevicesByApplianceIdentifier('light').pipe(
       map(devices => {
         return devices
-          .map(device => {
-            
+          .map(device => {            
             let properties = device.properties;
             if(device.customIdentifiers?.appliance?.includes(',')) {
               const index = device.customIdentifiers?.appliance?.split(',').indexOf('light');
@@ -58,8 +55,7 @@ export class LightsComponent implements OnInit {
                 dimmingLevelLastUpdated: prop.dimmingLevelLastUpdated
               } as LightData
             })
-          }
-          )
+          })
           .reduce((acc, e) => [...acc, ...e], [])
           .sort((a, b) => {
             var nameA = a.floor.toUpperCase();
@@ -77,11 +73,7 @@ export class LightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
-      if (devices.length === 0) {
-        this.store.dispatch(LoadAllDevices());
-      }
-    });
+    this.storeService.loadAllDevices();
   }
 
   switchLight(light: LightData, checked: boolean) {

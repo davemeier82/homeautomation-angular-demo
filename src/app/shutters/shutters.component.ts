@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { map, Observable, take } from 'rxjs';
 import { ChangeRollerState, LoadAllDevices } from '../actions/device.actions';
 import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
 import { StoreService } from '../store/store.service';
 
 export interface ShutterData {
@@ -26,8 +25,8 @@ export class ShuttersComponent implements OnInit {
   rollers$: Observable<ShutterData[]>;
   displayedColumns: string[] = ['label', 'state', 'position', 'actions','lastUpdated'];
 
-  constructor(private storeServie: StoreService, private store: Store<DeviceState>) { 
-    this.rollers$ = storeServie.getDevicesByApplianceIdentifier('shutter').pipe(map(devices => devices.map(device => 
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) { 
+    this.rollers$ = storeService.getDevicesByApplianceIdentifier('shutter').pipe(map(devices => devices.map(device => 
       device.properties.filter(prop => prop.type === 'Roller').map(
         prop => {
           return {
@@ -43,11 +42,7 @@ export class ShuttersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
-      if(devices.length === 0) {
-        this.store.dispatch(LoadAllDevices());
-      }
-    })
+    this.storeService.loadAllDevices();
   }
   
   changeRollerPosition(shutter: ShutterData, position: number) {

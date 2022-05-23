@@ -6,6 +6,9 @@ import { WindowsComponent } from './windows/windows.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ShuttersComponent } from './shutters/shutters.component';
 import { OutletsComponent } from './outlets/outlets.component';
+import { PowerComponent } from './power/power.component';
+import { CamerasComponent } from './cameras/cameras.component';
+import { DevicesConfigComponent } from './devices-config/devices-config.component';
 
 
 const routes: Routes = [
@@ -26,6 +29,15 @@ const routes: Routes = [
   },
   {
     path: 'outlets', component: OutletsComponent
+  },
+  {
+    path: 'power', component: PowerComponent
+  },
+  {
+    path: 'cameras', component: CamerasComponent
+  },
+  {
+    path: 'devices-config', component: DevicesConfigComponent
   },
   {
     path: '**', redirectTo: 'overview'

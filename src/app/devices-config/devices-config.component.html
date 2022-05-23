@@ -1,0 +1,25 @@
+<h2>Konfiguration</h2>
+
+<div *ngIf="devicesConfig$ | async as devicesConfig; else loading">
+    Version: {{devicesConfig.version}}
+    <hr>
+
+    <div *ngFor="let device of devicesConfig.devices">
+        <h3>{{device.displayName}}</h3>
+        <div>ID: {{device.id}}</div>
+        <div>Type: {{device.type}}</div>
+        <h4>Parameters</h4>
+        <li *ngFor="let parameter of device.parameters| keyvalue">
+            {{parameter.key}}: {{parameter.value}}
+        </li>
+        <h4>Custom Identifiers</h4>
+        <li *ngFor="let identifier of device.customIdentifiers| keyvalue">
+            {{identifier.key}}: {{identifier.value}}
+        </li>
+        <hr>
+    </div>
+</div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, of, take } from "rxjs";
-import { LoadAllDevices } from '../actions/device.actions';
+import { map, Observable } from "rxjs";
 import { DeviceState } from '../app.states';
 import { getDevices } from '../reducer/device.reducer';
+import { StoreService } from '../store/store.service';
 
 export interface SensorData {
   label: string;
@@ -23,7 +23,7 @@ export class ClimateComponent implements OnInit {
   data$: Observable<SensorData[]>;  
   displayedColumns: string[] = ['label', 'temperature', 'humidity', 'temperatureLastUpdated', 'humidityLastUpdated'];
 
-  constructor(private store: Store<DeviceState>) {    
+  constructor(private store: Store<DeviceState>, private storeService: StoreService) {    
     this.data$ = store.select(getDevices)
     .pipe(map(devices => devices.filter(device => device.properties.findIndex(value => value.type === 'TemperatureSensor' || value.type === 'HumiditySensor') != -1)
     .map(device => {
@@ -42,11 +42,7 @@ export class ClimateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
-      if(devices.length === 0) {
-        this.store.dispatch(LoadAllDevices());
-      }
-    })
+    this.storeService.loadAllDevices();
   }
 
 }

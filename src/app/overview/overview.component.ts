@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
-import { ChangeRollerState, LoadAllDevices } from '../actions/device.actions';
-import { StartEventStream } from '../actions/event.actions';
+import { map, Observable } from 'rxjs';
 import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
 import { StoreService } from '../store/store.service';
 
 @Component({
@@ -18,28 +15,36 @@ export class OverviewComponent implements OnInit {
   rollers$: Observable<(string | null)[]>;
   windows$: Observable<(string | null)[]>;
 
-  constructor(private storeServie: StoreService, private store: Store<DeviceState>) {
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) {
 
-    this.lights$ = storeServie.getDevicesByApplianceIdentifier('light').pipe(
-      map(devices => devices.map(device => device.properties
-        .filter(prop => prop.type === 'Relay' || prop.type === 'Dimmer')
-        .map(prop => {
-          if (prop?.isOn) {
-            return device.displayName;
-          } else {
-            return null;
-          }
-        })
-      )
+    this.lights$ = storeService.getDevicesByApplianceIdentifier('light').pipe(
+      map(devices => devices.map(device => {
+        let properties = device.properties;
+        if (device.customIdentifiers?.appliance?.includes(',')) {
+          const index = device.customIdentifiers?.appliance?.split(',').indexOf('light');
+          properties = [device.properties[index]];
+        }
+
+        return properties
+          .filter(prop => prop.type === 'Relay' || prop.type === 'Dimmer')
+          .map(prop => {
+            if (prop?.isOn) {
+              return device.displayName;
+            } else {
+              return null;
+            }
+          })
+      })
         .reduce((acc, e) => [...acc, ...e], [])
-        .filter(s => s !== null)));
+        .filter(s => s !== null)
+      ));
 
-    this.rollers$ = storeServie.getDevicesByApplianceIdentifier('shutter').pipe(
+    this.rollers$ = storeService.getDevicesByApplianceIdentifier('shutter').pipe(
       map(devices => devices.map(device =>
         device.properties
           .filter(prop => prop.type === 'Roller')
           .map(prop => {
-            if (prop?.positionInPercent && prop?.positionInPercent !== 100) {
+            if (prop?.positionInPercent !== 100) {
               return device.displayName;
             } else {
               return null;
@@ -49,7 +54,7 @@ export class OverviewComponent implements OnInit {
         .reduce((acc, e) => [...acc, ...e], [])
         .filter(s => s !== null)));
 
-    this.windows$ = storeServie.getDevicesByOneOfApplianceIdentifiers('window', 'door').pipe(
+    this.windows$ = storeService.getDevicesByOneOfApplianceIdentifiers('window', 'door').pipe(
       map(devices => devices.map(device =>
         device.properties
           .filter(prop => prop.type === 'WindowSensor')
@@ -66,11 +71,7 @@ export class OverviewComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
-      if (devices.length === 0) {
-        this.store.dispatch(LoadAllDevices());
-      }
-    });
+    this.storeService.loadAllDevices();
   }
 
 }

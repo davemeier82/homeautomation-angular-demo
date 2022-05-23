@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { map, take } from 'rxjs';
-import { LoadAllDevices, SwitchRelay } from '../actions/device.actions';
+import { map } from 'rxjs';
+import { SwitchRelay } from '../actions/device.actions';
 import { DeviceState } from '../app.states';
-import { deviceReducer, getDevices } from '../reducer/device.reducer';
 import { StoreService } from '../store/store.service';
 
 export interface OutletData {
@@ -27,15 +26,15 @@ export class OutletsComponent implements OnInit {
   dataSource = new MatTableDataSource<OutletData>()
   displayedColumns: string[] = ['label', 'floor', 'state', 'lastUpdated'];
 
-  constructor(private storeServie: StoreService, private store: Store<DeviceState>) {
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) {
 
-    storeServie.getDevicesByApplianceIdentifier('outlet').pipe(
+    storeService.getDevicesByApplianceIdentifier('outlet').pipe(
       map(devices => {
         return devices
           .map(device => {
             let properties = device.properties;
             if (device.customIdentifiers?.appliance?.includes(',')) {
-              const index = device.customIdentifiers?.appliance?.split(',').indexOf('light');
+              const index = device.customIdentifiers?.appliance?.split(',').indexOf('outlet');
               properties = [device.properties[index]];
             }
 
@@ -70,12 +69,8 @@ export class OutletsComponent implements OnInit {
     ).subscribe(outlets => this.dataSource.data = outlets);
   }
 
-  ngOnInit(): void {
-    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
-      if (devices.length === 0) {
-        this.store.dispatch(LoadAllDevices());
-      }
-    });
+  ngOnInit(): void {    
+    this.storeService.loadAllDevices();
   }
 
   switchRelay(outlet: OutletData, checked: boolean) {

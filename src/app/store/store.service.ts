@@ -1,15 +1,26 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { map, Observable } from "rxjs";
+import { map, Observable, take } from "rxjs";
 import { DeviceState } from "../app.states";
 import { Device } from "../model/device";
 import * as fromReducer from '../reducer/device.reducer';
+import { LoadAllDevices } from '../actions/device.actions';
+import { getDevices } from '../reducer/device.reducer';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
   constructor(private store: Store<DeviceState>) {
+  }
+
+  loadAllDevices() {
+    this.store.select(getDevices).pipe(take(1)).subscribe(devices => {
+      if(devices.length === 0) {
+        this.store.dispatch(LoadAllDevices());
+      }
+    })
   }
 
   getDevicesByApplianceIdentifier(appliance: string): Observable<Device[]> {
