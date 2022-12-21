@@ -8,7 +8,7 @@ export interface DeviceProperty {
     lux?: number;
     batteryLevelInPercent?: number;
     lastUpdated?: Date;
-    lastMotionDetected?: Date;
+    lastMotion?: Date;
     watt?: number;
     isOpen?: boolean;
     state?: string;

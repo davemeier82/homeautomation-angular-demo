@@ -9,6 +9,7 @@ import { OutletsComponent } from './outlets/outlets.component';
 import { PowerComponent } from './power/power.component';
 import { CamerasComponent } from './cameras/cameras.component';
 import { DevicesConfigComponent } from './devices-config/devices-config.component';
+import { MotionComponent } from './motion/motion.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: 'power', component: PowerComponent
+  },
+  {
+    path: 'motion', component: MotionComponent
   },
   {
     path: 'cameras', component: CamerasComponent

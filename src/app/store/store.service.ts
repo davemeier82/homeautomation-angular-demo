@@ -23,6 +23,11 @@ export class StoreService {
     })
   }
 
+  getDevices(): Observable<Device[]> {
+    return this.store.select(fromReducer.getDevices)
+      .pipe(map(devices => devices.filter(device => this.isNotHidden(device))));
+  }
+
   getDevicesByApplianceIdentifier(appliance: string): Observable<Device[]> {
     return this.store.select(fromReducer.getDevices)
       .pipe(map(devices => devices.filter(device => this.isNotHidden(device) &&

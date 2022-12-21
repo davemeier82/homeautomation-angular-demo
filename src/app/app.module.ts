@@ -30,6 +30,7 @@ import { CamerasComponent } from './cameras/cameras.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { DevicesConfigComponent } from './devices-config/devices-config.component';
 import { DevicesConfigEffects } from './effect/device-config.effects';
+import { MotionComponent } from './motion/motion.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DevicesConfigEffects } from './effect/device-config.effects';
     PowerComponent,
     CamerasComponent,
     DevicesConfigComponent,
+    MotionComponent,
     SafePipe
   ],
   imports: [
