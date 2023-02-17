@@ -16,5 +16,7 @@ export interface DeviceProperty {
     positionInPercent?: number
     stateLastUpdated?: Date;
     dimmingLevelInPercent?: number;
-    dimmingLevelLastUpdated?: Date
+    dimmingLevelLastUpdated?: Date;
+    ppm?: number;
+    isSmokeDetected?: boolean;
 }

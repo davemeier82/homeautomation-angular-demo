@@ -25,6 +25,17 @@
       <th mat-header-cell *matHeaderCellDef>Feucht. gemessen um</th>
       <td mat-cell *matCellDef="let element">{{element.humidity ? (element.humidityLastUpdated | date :'d.M.yyyy, H:mm') : ''}}</td>
     </ng-container>
+      
+    <ng-container matColumnDef="co2">
+      <th mat-header-cell *matHeaderCellDef>Co2</th>
+      <td mat-cell *matCellDef="let element">{{element.co2 ? element.co2 + 'ppm': '' }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="co2LastUpdated">
+      <th mat-header-cell *matHeaderCellDef>Co2 gemessen um</th>
+      <td mat-cell *matCellDef="let element">{{element.co2 ? (element.co2LastUpdated | date :'d.M.yyyy, H:mm') : ''}}</td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

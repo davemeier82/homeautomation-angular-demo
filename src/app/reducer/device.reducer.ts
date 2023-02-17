@@ -16,27 +16,27 @@ const _deviceReducer = createReducer(
       if (device) {
         let property = device.properties[payload.propertyId];
         switch (payload.propertyType) {
-          case 'RelayStateChangedEvent': {
+          case 'RelayStateUpdatedEvent': {
             property.isOn = payload.newValue;
             property.lastUpdated = payload.eventTime;
             break;
           }
-          case 'TemperatureChangedEvent': {
+          case 'TemperatureUpdatedEvent': {
             property.temperatureInDegree = payload.newValue;
             property.lastUpdated = payload.eventTime;
             break;
           }
-          case 'HumidityChangedEvent': {
+          case 'HumidityUpdatedEvent': {
             property.relativeHumidityInPercent = payload.newValue;
             property.lastUpdated = payload.eventTime;
             break;
           }
-          case 'DimmingLevelChangedEvent': {
+          case 'DimmingLevelUpdatedEvent': {
             property.dimmingLevelInPercent = payload.newValue;
             property.dimmingLevelLastUpdated = payload.eventTime;
             break;
           }
-          case 'IlluminanceChangedEvent': {
+          case 'IlluminanceUpdatedEvent': {
             property.lux = payload.newValue;
             property.lastUpdated = payload.eventTime;
             break;
@@ -51,8 +51,30 @@ const _deviceReducer = createReducer(
             property.lastUpdated = payload.eventTime;
             break;
           }
-          case 'WindowStateChangedEvent': {
+          case 'WindowStateUpdatedEvent': {
             property.positionInPercent = payload.newValue;
+            property.lastUpdated = payload.eventTime;
+            break;
+          }
+          case 'MotionUpdatedEvent': {
+            if (payload.newValue) {
+              property.lastMotion = payload.eventTime;
+            }
+            property.lastUpdated = payload.eventTime;
+            break;
+          }
+          case 'Co2LevelUpdatedEvent': {
+            property.ppm = payload.newValue;
+            property.lastUpdated = payload.eventTime;
+            break;
+          }
+          case 'AlarmStateUpdatedEvent': {
+            property.state = payload.newValue;
+            property.stateLastUpdated = payload.eventTime;
+            break;
+          }
+          case 'SmokeStateUpdatedEvent': {
+            property.isSmokeDetected = payload.newValue;
             property.lastUpdated = payload.eventTime;
             break;
           }
