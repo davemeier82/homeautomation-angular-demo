@@ -10,7 +10,7 @@ RUN npm run build:ngssc
 FROM nginx:1.21-alpine
 
 # Install ngssc binary
-ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v13.1.0/ngssc_64bit /usr/sbin/ngssc
+ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v15.0.2/ngssc_64bit /usr/sbin/ngssc
 RUN chmod +x /usr/sbin/ngssc
 
 # Add ngssc init script

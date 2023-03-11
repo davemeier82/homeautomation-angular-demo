@@ -86,8 +86,7 @@
 					"builder": "angular-server-side-configuration:ngsscbuild",
 					"options": {
 						"additionalEnvironmentVariables": [],
-						"browserTarget": "home-automation:build",
-						"ngsscEnvironmentFile": "src/environments/environment.prod.ts",
+            "browserTarget": "home-automation:build",
 						"filePattern": "index.html"
 					},
 					"configurations": {
