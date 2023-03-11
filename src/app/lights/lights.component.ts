@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ChangeDimmingLevel, LoadAllDevices, SwitchRelay } from '../actions/device.actions';
