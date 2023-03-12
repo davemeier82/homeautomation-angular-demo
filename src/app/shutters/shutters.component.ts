@@ -45,7 +45,8 @@ export class ShuttersComponent implements OnInit {
     this.storeService.loadAllDevices();
   }
   
-  changeRollerPosition(shutter: ShutterData, position: number) {
+  changeRollerPosition(shutter: ShutterData, pos: string) {
+    const position = parseFloat(pos);
     this.store.dispatch(ChangeRollerState({
       deviceId: shutter.deviceId,
       deviceType: shutter.deviceType,

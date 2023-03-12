@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:14.15-alpine AS build
+FROM node:18-alpine AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm install
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build:ngssc
 
 ### STAGE 2: Run ###
-FROM nginx:1.21-alpine
+FROM nginx:1.23-alpine
 
 # Install ngssc binary
 ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v15.0.2/ngssc_64bit /usr/sbin/ngssc

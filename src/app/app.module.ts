@@ -8,12 +8,11 @@ import { LightsComponent } from './lights/lights.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatLegacySlideToggleModule as MatSlideToggleModule} from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatListModule } from '@angular/material/list';
 import { ClimateComponent } from './climate/climate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceEffects } from './effect/device.effects';
@@ -21,7 +20,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './reducer/reducers';
 import { WindowsComponent } from './windows/windows.component';
 import { ShuttersComponent } from './shutters/shutters.component';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 import { OverviewComponent } from './overview/overview.component';
 import { EventEffects } from './effect/event.effects';
 import { OutletsComponent } from './outlets/outlets.component';
@@ -31,6 +29,8 @@ import { SafePipe } from './pipes/safe.pipe';
 import { DevicesConfigComponent } from './devices-config/devices-config.component';
 import { DevicesConfigEffects } from './effect/device-config.effects';
 import { MotionComponent } from './motion/motion.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [

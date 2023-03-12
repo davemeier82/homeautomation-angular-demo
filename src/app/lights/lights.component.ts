@@ -85,7 +85,8 @@ export class LightsComponent implements OnInit {
     }));
   }
 
-  setDimmingLevel(light: LightData, dimmingLevel: number) {
+  setDimmingLevel(light: LightData, level: string) {
+    const dimmingLevel = parseFloat(level)
     this.store.dispatch(ChangeDimmingLevel({
       deviceId: light.deviceId,
       deviceType: light.deviceType,
