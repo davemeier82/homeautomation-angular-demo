@@ -28,4 +28,8 @@ export class DeviceService {
   changeDimmingLevel(deviceId: string, type: string, propertyId: number, dimmingLevel?: number): Observable<any> {
     return this.http.put(this.deviceUrl + '/' + deviceId + '/' + type + '/' + propertyId, {dimmingLevel});
   }
+  
+  changeState(deviceId: string, type: string, propertyId: number, state?: string): Observable<any> {
+    return this.http.put(this.deviceUrl + '/' + deviceId + '/' + type + '/' + propertyId, {state});
+  }
 }

@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { ChangeAlarmStateDto } from "../model/change-alarm-state-dto";
 import { ChangeDimmingLevelDto } from "../model/change-dimming-level-dto.d copy";
 import { ChangeRollerStateDto } from "../model/change-roller-state-dto";
 import { Device } from "../model/device";
@@ -12,3 +13,5 @@ export const ChangeRollerState = createAction('[Roller] Change Roller State', pr
 export const ChangeRollerStateSuccess = createAction('[Roller] Change Roller State Success', props<ChangeRollerStateDto>());
 export const ChangeDimmingLevel = createAction('[Dimmer] Change Dimming Level', props<ChangeDimmingLevelDto>());
 export const ChangeDimmingLevelSuccess = createAction('[Dimmer] Change Dimming Level Success', props<ChangeDimmingLevelDto>());
+export const ChangeAlarmState = createAction('[Alarm] Change Alarm State', props<ChangeAlarmStateDto>());
+export const ChangeAlarmStateSuccess = createAction('[Alarm] Change Alarm State Success', props<ChangeAlarmStateDto>());

@@ -31,6 +31,7 @@ import { DevicesConfigEffects } from './effect/device-config.effects';
 import { MotionComponent } from './motion/motion.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { AlarmComponent } from './alarm/alarm.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MatTableModule } from '@angular/material/table';
     CamerasComponent,
     DevicesConfigComponent,
     MotionComponent,
+    AlarmComponent,
     SafePipe
   ],
   imports: [

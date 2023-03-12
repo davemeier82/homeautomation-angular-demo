@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
-import { ChangeRollerState, LoadAllDevices } from '../actions/device.actions';
+import { map, Observable } from 'rxjs';
+import { ChangeRollerState } from '../actions/device.actions';
 import { DeviceState } from '../app.states';
 import { StoreService } from '../store/store.service';
 

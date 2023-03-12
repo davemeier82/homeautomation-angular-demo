@@ -70,7 +70,7 @@ const _deviceReducer = createReducer(
           }
           case 'AlarmStateUpdatedEvent': {
             property.state = payload.newValue;
-            property.stateLastUpdated = payload.eventTime;
+            property.lastUpdated = payload.eventTime;
             break;
           }
           case 'SmokeStateUpdatedEvent': {
