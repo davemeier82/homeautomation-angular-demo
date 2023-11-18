@@ -98,22 +98,22 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "home-automation:build:production"
+            "production": {
+              "buildTarget": "home-automation:build:production"
 						},
-						"development": {
-							"browserTarget": "home-automation:build:development"
+            "development": {
+              "buildTarget": "home-automation:build:development"
 						},
-						"test": {
-							"browserTarget": "home-automation:build:test"
+            "test": {
+              "buildTarget": "home-automation:build:test"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "home-automation:build"
+          "options": {
+            "buildTarget": "home-automation:build"
 					}
 				},
 				"test": {
