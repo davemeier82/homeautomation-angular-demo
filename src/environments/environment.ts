@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiPath: 'localhost:8080/api/'
+  apiPath: 'localhost:8080/api/',
+  cameraUrl: 'http://www.google.ch',
 };
 
 /*
