@@ -1,4 +1,4 @@
-export interface DevicePropertyEvent {
+export type DevicePropertyEvent = {
     type: string;
     id: string;
     propertyType: string;
@@ -7,4 +7,5 @@ export interface DevicePropertyEvent {
     newValue?: any;
     eventTime?: Date;
     oldValueTime?: Date;
+    label?: string;
 }

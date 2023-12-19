@@ -32,6 +32,15 @@ import { MotionComponent } from './motion/motion.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { AlarmComponent } from './alarm/alarm.component';
+import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
+import { environment } from 'src/environments/environment';
+
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: environment.mqtt.server,
+  port: environment.mqtt.port,
+  path: '',
+};
+
 
 @NgModule({
   declarations: [
@@ -64,7 +73,8 @@ import { AlarmComponent } from './alarm/alarm.component';
     MatSlideToggleModule,
     HttpClientModule,
     MatTableModule,
-    MatSliderModule
+    MatSliderModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
   providers: [],
   bootstrap: [AppComponent]

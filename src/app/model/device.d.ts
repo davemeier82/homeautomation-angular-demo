@@ -1,7 +1,7 @@
 import { CustomIdentifiers } from "./custom-identifiers";
 import { DeviceProperty } from "./device-property";
 
-export interface Device {
+export type Device = {
     type: string;
     id: string;
     displayName: string;

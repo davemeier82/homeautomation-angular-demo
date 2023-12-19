@@ -1,4 +1,4 @@
-export interface CustomIdentifiers {
+export type CustomIdentifiers = {
     appliance?: string;
     floor?: string;
     label?: string;

@@ -1,5 +1,5 @@
 
-export interface DeviceConfig {
+export type DeviceConfig = {
     type: string;
     id: string;
     displayName: string;

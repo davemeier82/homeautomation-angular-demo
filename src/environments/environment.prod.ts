@@ -20,5 +20,9 @@ import 'angular-server-side-configuration/process';
 export const environment = {
   production: true,
   apiPath: process.env['API_PATH'],
-  cameraUrl: process.env['CAMERA_URL']
+  cameraUrl: process.env['CAMERA_URL'],
+  mqtt: {
+		server: '192.168.1.120',
+		port: 9001
+	}
 };

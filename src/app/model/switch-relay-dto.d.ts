@@ -1,4 +1,4 @@
-export interface SwitchRelayDto {
+export type SwitchRelayDto = {
     deviceId: string;
     deviceType: string;
     propertyId: number;

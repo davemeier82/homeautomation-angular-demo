@@ -1,7 +1,7 @@
 
 type StoreState = "open" | "close" | "stop";
 
-export interface ChangeRollerStateDto {
+export type ChangeRollerStateDto = {
     deviceId: string;
     deviceType: string;
     propertyId: number;

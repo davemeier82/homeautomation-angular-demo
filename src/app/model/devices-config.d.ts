@@ -1,8 +1,7 @@
-import { CustomIdentifiers } from "./custom-identifiers";
-import { DeviceConfig } from "./device-config";
-import { DeviceProperty } from "./device-property";
 
-export interface DevicesConfig {
+import { DeviceConfig } from "./device-config";
+
+export type DevicesConfig = {
     version: string;
     devices: DeviceConfig[];
 }

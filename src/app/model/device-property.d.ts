@@ -1,5 +1,5 @@
 
-export interface DeviceProperty {
+export type DeviceProperty = {
     id: number;    
     type: string;
     isOn?: boolean;

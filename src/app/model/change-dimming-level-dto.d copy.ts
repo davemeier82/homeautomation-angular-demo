@@ -1,5 +1,5 @@
 
-export interface ChangeDimmingLevelDto {
+export type ChangeDimmingLevelDto = {
     deviceId: string;
     deviceType: string;
     propertyId: number;
