@@ -15,68 +15,70 @@ const _deviceReducer = createReducer(
       let device = state.devices[deviceIndex];
       if (device) {
         let property = device.properties[payload.propertyId];
-        switch (payload.propertyType) {
-          case 'RelayStateUpdatedEvent': {
-            property.isOn = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'TemperatureUpdatedEvent': {
-            property.temperatureInDegree = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'HumidityUpdatedEvent': {
-            property.relativeHumidityInPercent = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'DimmingLevelUpdatedEvent': {
-            property.dimmingLevelInPercent = payload.newValue;
-            property.dimmingLevelLastUpdated = payload.eventTime;
-            break;
-          }
-          case 'IlluminanceUpdatedEvent': {
-            property.lux = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'RollerStateChangedEvent': {
-            property.state = payload.newValue;
-            property.stateLastUpdated = payload.eventTime;
-            break;
-          }
-          case 'RollerPositionChangedEvent': {
-            property.positionInPercent = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'WindowStateUpdatedEvent': {
-            property.positionInPercent = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'MotionUpdatedEvent': {
-            if (payload.newValue) {
-              property.lastMotion = payload.eventTime;
+        if (property) {
+          switch (payload.propertyType) {
+            case 'RelayStateUpdatedEvent': {
+              property.isOn = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
             }
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'Co2LevelUpdatedEvent': {
-            property.ppm = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'AlarmStateUpdatedEvent': {
-            property.state = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
-          }
-          case 'SmokeStateUpdatedEvent': {
-            property.isSmokeDetected = payload.newValue;
-            property.lastUpdated = payload.eventTime;
-            break;
+            case 'TemperatureUpdatedEvent': {
+              property.temperatureInDegree = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'HumidityUpdatedEvent': {
+              property.relativeHumidityInPercent = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'DimmingLevelUpdatedEvent': {
+              property.dimmingLevelInPercent = payload.newValue;
+              property.dimmingLevelLastUpdated = payload.eventTime;
+              break;
+            }
+            case 'IlluminanceUpdatedEvent': {
+              property.lux = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'RollerStateChangedEvent': {
+              property.state = payload.newValue;
+              property.stateLastUpdated = payload.eventTime;
+              break;
+            }
+            case 'RollerPositionChangedEvent': {
+              property.positionInPercent = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'WindowStateUpdatedEvent': {
+              property.positionInPercent = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'MotionUpdatedEvent': {
+              if (payload.newValue) {
+                property.lastMotion = payload.eventTime;
+              }
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'Co2LevelUpdatedEvent': {
+              property.ppm = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'AlarmStateUpdatedEvent': {
+              property.state = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
+            case 'SmokeStateUpdatedEvent': {
+              property.isSmokeDetected = payload.newValue;
+              property.lastUpdated = payload.eventTime;
+              break;
+            }
           }
         }
       }
