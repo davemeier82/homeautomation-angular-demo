@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { ChangeDimmingLevel, LoadAllDevices, SwitchRelay } from '../actions/device.actions';
+import { ChangeDimmingLevel, SwitchRelay } from '../actions/device.actions';
 import { DeviceState } from '../app.states';
 import { StoreService } from '../store/store.service';
 

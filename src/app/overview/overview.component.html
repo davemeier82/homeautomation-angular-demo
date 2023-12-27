@@ -2,7 +2,7 @@
 <div *ngIf="lights$ | async; let list; else noLight">
     <div *ngIf="list.length > 0; else noLight">
         <ul *ngFor="let light of list">
-            <li>{{light}}</li>
+            <li>{{light?.label}} <button type="button" (click)="swithLightOff(light)">Ausschalten</button></li>
         </ul>
     </div>
 </div>
