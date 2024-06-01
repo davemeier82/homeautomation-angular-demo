@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
-import { LoadAllDevices } from '../actions/device.actions';
-import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {map, Observable, take} from 'rxjs';
+import {LoadAllDevices} from '../actions/device.actions';
+import {DeviceState} from '../app.states';
+import {getDevices} from '../reducer/device.reducer';
+import {StoreService} from '../store/store.service';
 
 export interface WindowData {
   label: string;
@@ -36,8 +36,8 @@ export class WindowsComponent implements OnInit {
           .filter(prop => prop.type === 'WindowSensor')
           .map(prop => {
             return {
-              label: device.customIdentifiers?.label,
-              floor: device.customIdentifiers?.floor,
+              label: device.customIdentifiers?.label ?? device.displayName,
+              floor: device.customIdentifiers?.floor ?? '',
               isOpen: prop.isOpen,
               lastUpdated: prop.isOpenLastUpdated
             } as WindowData

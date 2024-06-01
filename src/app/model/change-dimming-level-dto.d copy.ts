@@ -2,6 +2,6 @@
 export type ChangeDimmingLevelDto = {
     deviceId: string;
     deviceType: string;
-    propertyId: number;
+  propertyId: string;
     dimmingLevel: number;
 }

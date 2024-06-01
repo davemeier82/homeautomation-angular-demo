@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
-import { DeviceState } from '../app.states';
-import { StoreService } from '../store/store.service';
-import { SwitchRelay } from '../actions/device.actions';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {map, Observable} from 'rxjs';
+import {DeviceState} from '../app.states';
+import {StoreService} from '../store/store.service';
+import {SwitchRelay} from '../actions/device.actions';
 
 export interface LightData {
   deviceId: string;
   deviceType: string;
-  propertyId: number;
+  propertyId: string;
   label: string;
 }
 

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
-import { ChangeDimmingLevel, SwitchRelay } from '../actions/device.actions';
-import { DeviceState } from '../app.states';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {Store} from '@ngrx/store';
+import {map} from 'rxjs';
+import {ChangeDimmingLevel, SwitchRelay} from '../actions/device.actions';
+import {DeviceState} from '../app.states';
+import {StoreService} from '../store/store.service';
 
 export interface LightData {
   deviceId: string;
   deviceType: string;
-  propertyId: number;
+  propertyId: string;
   label: string;
   floor: string;
   state: boolean;
@@ -33,7 +33,7 @@ export class LightsComponent implements OnInit {
     storeService.getDevicesByApplianceIdentifier('light').pipe(
       map(devices => {
         return devices
-          .map(device => {            
+          .map(device => {
             let properties = device.properties;
             if(device.customIdentifiers?.appliance?.includes(',')) {
               const index = device.customIdentifiers?.appliance?.split(',').indexOf('light');
@@ -44,9 +44,9 @@ export class LightsComponent implements OnInit {
             .filter(prop => prop.type === 'Relay' || prop.type === 'Dimmer')
             .map(prop => {
               return {
-                label: device.customIdentifiers?.label,
+                label: device.customIdentifiers?.label ?? device.displayName,
                 state: prop.isOn,
-                floor: device.customIdentifiers?.floor,
+                floor: device.customIdentifiers?.floor ?? '',
                 lastUpdated: prop.lastUpdated,
                 deviceId: device.id,
                 deviceType: device.type,

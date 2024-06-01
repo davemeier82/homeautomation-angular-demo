@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
-import { SwitchRelay } from '../actions/device.actions';
-import { DeviceState } from '../app.states';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {Store} from '@ngrx/store';
+import {map} from 'rxjs';
+import {SwitchRelay} from '../actions/device.actions';
+import {DeviceState} from '../app.states';
+import {StoreService} from '../store/store.service';
 
 export interface OutletData {
   deviceId: string;
   deviceType: string;
-  propertyId: number;
+  propertyId: string;
   label: string;
   floor: string;
   state: boolean;
@@ -69,7 +69,7 @@ export class OutletsComponent implements OnInit {
     ).subscribe(outlets => this.dataSource.data = outlets);
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.storeService.loadAllDevices();
   }
 

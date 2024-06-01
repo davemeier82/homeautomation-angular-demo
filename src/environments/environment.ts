@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiPath: 'localhost:8080/api/',
+  apiPath: 'http://localhost:8080/api/',
   cameraUrl: 'http://www.google.ch',
   mqtt: {
 		server: '192.168.1.120',

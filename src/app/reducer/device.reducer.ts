@@ -1,8 +1,8 @@
-import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { LoadAllDevicesSuccess } from "../actions/device.actions";
-import { EventReceived } from "../actions/event.actions";
-import { DeviceState } from "../app.states";
-import { immerOn } from 'ngrx-immer/store';
+import {Action, createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
+import {LoadAllDevicesSuccess} from "../actions/device.actions";
+import {EventReceived} from "../actions/event.actions";
+import {DeviceState} from "../app.states";
+import {immerOn} from 'ngrx-immer/store';
 
 export const initialState: DeviceState = { devices: [] };
 
@@ -14,7 +14,8 @@ const _deviceReducer = createReducer(
     if (deviceIndex) {
       let device = state.devices[deviceIndex];
       if (device) {
-        let property = device.properties[payload.propertyId];
+        const propertyIndex = device.properties.findIndex(property => property.id === payload.id);
+        let property = device.properties[propertyIndex];
         if (property) {
           switch (payload.propertyType) {
             case 'RelayStateUpdatedEvent': {

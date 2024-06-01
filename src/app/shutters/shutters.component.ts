@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
-import { ChangeRollerState } from '../actions/device.actions';
-import { DeviceState } from '../app.states';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {map, Observable} from 'rxjs';
+import {ChangeRollerPosition, ChangeRollerState} from '../actions/device.actions';
+import {DeviceState} from '../app.states';
+import {StoreService} from '../store/store.service';
 
 export interface ShutterData {
   deviceId: string;
   deviceType: string;
-  propertyId: number;
+  propertyId: string;
   label: string;
   state: string;
   position: number;
@@ -25,8 +25,8 @@ export class ShuttersComponent implements OnInit {
   rollers$: Observable<ShutterData[]>;
   displayedColumns: string[] = ['label', 'state', 'position', 'actions','lastUpdated'];
 
-  constructor(private storeService: StoreService, private store: Store<DeviceState>) { 
-    this.rollers$ = storeService.getDevicesByApplianceIdentifier('shutter').pipe(map(devices => devices.map(device => 
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) {
+    this.rollers$ = storeService.getDevicesByApplianceIdentifier('shutter').pipe(map(devices => devices.map(device =>
       device.properties.filter(prop => prop.type === 'Roller').map(
         prop => {
           return {
@@ -37,17 +37,17 @@ export class ShuttersComponent implements OnInit {
             deviceId: device.id,
             deviceType: device.type,
             propertyId: prop.id
-          } as ShutterData      
+          } as ShutterData
     })).reduce((acc, e) => [...acc, ...e], [])));
   }
 
   ngOnInit(): void {
     this.storeService.loadAllDevices();
   }
-  
+
   changeRollerPosition(shutter: ShutterData, pos: string) {
     const position = parseFloat(pos);
-    this.store.dispatch(ChangeRollerState({
+    this.store.dispatch(ChangeRollerPosition({
       deviceId: shutter.deviceId,
       deviceType: shutter.deviceType,
       propertyId: shutter.propertyId,

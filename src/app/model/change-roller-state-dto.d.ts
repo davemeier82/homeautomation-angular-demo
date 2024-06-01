@@ -4,7 +4,6 @@ type StoreState = "open" | "close" | "stop";
 export type ChangeRollerStateDto = {
     deviceId: string;
     deviceType: string;
-    propertyId: number;
+  propertyId: string;
     state?: StoreState;
-    position?: number;
 }

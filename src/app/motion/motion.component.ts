@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
-import { map, take } from 'rxjs';
-import { LoadAllDevices } from '../actions/device.actions';
-import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {Store} from '@ngrx/store';
+import {map, take} from 'rxjs';
+import {LoadAllDevices} from '../actions/device.actions';
+import {DeviceState} from '../app.states';
+import {getDevices} from '../reducer/device.reducer';
+import {StoreService} from '../store/store.service';
 
 export interface MotionData {
   label: string;
@@ -24,15 +24,15 @@ export class MotionComponent  implements OnInit {
   dataSource = new MatTableDataSource<MotionData>()
   displayedColumns: string[] = ['label', 'floor', 'lastMotion', 'lastUpdated'];
 
-  constructor(private storeServie: StoreService, private store: Store<DeviceState>) {    
-    this.storeServie.getDevices().pipe(
+  constructor(private storeService: StoreService, private store: Store<DeviceState>) {
+    this.storeService.getDevices().pipe(
       map(devices => devices.map(device =>
         device.properties
           .filter(prop => prop.type === 'MotionSensor' && prop.lastUpdated)
           .map(prop => {
             return {
-              label: device.customIdentifiers?.label,
-              floor: device.customIdentifiers?.floor,
+              label: device.customIdentifiers?.label ?? device.displayName,
+              floor: device.customIdentifiers?.floor ?? '',
               lastMotion: prop.lastMotion,
               lastUpdated: prop.lastUpdated
             } as MotionData
