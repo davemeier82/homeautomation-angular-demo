@@ -21,7 +21,6 @@ export type DeviceProperty = {
   positionInPercent: number | undefined | null;
   positionLastUpdated: Date | undefined | null;
   dimmingLevelInPercent: number | undefined | null;
-  dimmingLevelLastUpdated: Date | undefined | null;
   ppm: number | undefined | null;
   uvIndex: number | undefined | null;
   isSmokeDetected: boolean | undefined | null;

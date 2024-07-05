@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { LoadDevicesConfig } from '../actions/device-config.actions';
-import { DevicesConfigState } from '../app.states';
-import { DevicesConfig } from '../model/devices-config';
-import { getDevicesConfig } from '../reducer/device-config.reducer';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {LoadDevicesConfig} from '../actions/device-config.actions';
+import {DevicesConfigState} from '../app.states';
+import {DevicesConfig} from '../model/devices-config';
+import {getDevicesConfig} from '../reducer/device-config.reducer';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class DevicesConfigComponent implements OnInit {
 
   constructor(private store: Store<DevicesConfigState>) {
     this.devicesConfig$ = this.store.select(getDevicesConfig);
-  }  
+  }
 
   ngOnInit(): void {
     this.store.dispatch(LoadDevicesConfig());

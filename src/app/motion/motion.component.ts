@@ -28,7 +28,7 @@ export class MotionComponent  implements OnInit {
     this.storeService.getDevices().pipe(
       map(devices => devices.map(device =>
         device.properties
-          .filter(prop => prop.type === 'MotionSensor' && prop.lastUpdated)
+          .filter(prop => prop.type === 'MotionSensor' && (prop.lastUpdated || prop.lastMotion))
           .map(prop => {
             return {
               label: device.customIdentifiers?.label ?? device.displayName,

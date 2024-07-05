@@ -9,6 +9,7 @@ import {StoreService} from '../store/store.service';
 export interface LightData {
   deviceId: string;
   deviceType: string;
+  propType: string;
   propertyId: string;
   label: string;
   floor: string;
@@ -36,7 +37,7 @@ export class LightsComponent implements OnInit {
           .map(device => {
             let properties = device.properties;
             if(device.customIdentifiers?.appliance?.includes(',')) {
-              const index = device.customIdentifiers?.appliance?.split(',').indexOf('light');
+              const index = device.customIdentifiers?.appliance?.split(',').indexOf('light'); // TODO support more than one light per device
               properties = [device.properties[index]];
             }
 
@@ -50,13 +51,29 @@ export class LightsComponent implements OnInit {
                 lastUpdated: prop.lastUpdated,
                 deviceId: device.id,
                 deviceType: device.type,
+                propType: prop.type,
                 propertyId: prop.id,
                 dimmingLevelInPercent: prop.dimmingLevelInPercent,
-                dimmingLevelLastUpdated: prop.dimmingLevelLastUpdated
               } as LightData
             })
+              .reduce((prev, cur) => {
+                if (prev.propType === 'Relay' && cur.propType === 'Dimmer') {
+                  return {
+                    label: prev.label,
+                    state: prev.state,
+                    floor: prev.floor,
+                    lastUpdated: cur.lastUpdated > prev.lastUpdated ? cur.lastUpdated : prev.lastUpdated,
+                    deviceId: prev.deviceId,
+                    deviceType: prev.deviceType,
+                    propType: cur.propType,
+                    propertyId: prev.propertyId,
+                    dimmingLevelInPercent: cur.dimmingLevelInPercent,
+                  } as LightData
+                }
+                return cur ? cur : prev;
+              })
           })
-          .reduce((acc, e) => [...acc, ...e], [])
+          //.reduce((acc, e) => [...acc, ...e], [])
           .sort((a, b) => {
             var nameA = a.floor.toUpperCase();
             var nameB = b.floor.toUpperCase();

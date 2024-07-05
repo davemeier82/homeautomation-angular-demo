@@ -35,7 +35,7 @@ const _deviceReducer = createReducer(
             }
             case 'DimmingLevelUpdatedEvent': {
               property.dimmingLevelInPercent = payload.newValue;
-              property.dimmingLevelLastUpdated = payload.eventTime;
+              property.lastUpdated = payload.eventTime;
               break;
             }
             case 'IlluminanceUpdatedEvent': {
