@@ -52,7 +52,7 @@ export class OverviewComponent implements OnInit {
       map(devices => devices.map(device =>
         device.properties
           .filter(prop => prop.type === 'Roller')
-          .filter(prop => prop?.positionInPercent !== 100)
+          .filter(prop => prop?.positionInPercent != null && prop.positionInPercent !== 100)
           .map(() => device.displayName)
       )
         .reduce((acc, e) => [...acc, ...e], [])

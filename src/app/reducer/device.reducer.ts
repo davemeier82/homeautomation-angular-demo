@@ -14,7 +14,7 @@ const _deviceReducer = createReducer(
     if (deviceIndex) {
       let device = state.devices[deviceIndex];
       if (device) {
-        const propertyIndex = device.properties.findIndex(property => property.id === payload.id);
+        const propertyIndex = device.properties.findIndex(property => property.id === payload.propertyId);
         let property = device.properties[propertyIndex];
         if (property) {
           switch (payload.propertyType) {

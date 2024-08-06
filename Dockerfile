@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build:ngssc
 
 ### STAGE 2: Run ###
-FROM nginx:1.25-alpine
+FROM nginx:1.26-alpine
 
 # Install ngssc binary
 ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v17.0.2/ngssc_64bit /usr/sbin/ngssc
