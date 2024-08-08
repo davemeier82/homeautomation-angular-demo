@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
 import { ClimateComponent } from './climate/climate.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { DeviceEffects } from './effect/device.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './reducer/reducers';
@@ -42,41 +42,34 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
 };
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LightsComponent,
-    ClimateComponent,
-    WindowsComponent,
-    ShuttersComponent,
-    OverviewComponent,
-    OutletsComponent,
-    PowerComponent,
-    CamerasComponent,
-    DevicesConfigComponent,
-    MotionComponent,
-    AlarmComponent,
-    SafePipe
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([DeviceEffects, EventEffects, DevicesConfigEffects]),
-    AppRoutingModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatSlideToggleModule,
-    HttpClientModule,
-    MatTableModule,
-    MatSliderModule,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LightsComponent,
+        ClimateComponent,
+        WindowsComponent,
+        ShuttersComponent,
+        OverviewComponent,
+        OutletsComponent,
+        PowerComponent,
+        CamerasComponent,
+        DevicesConfigComponent,
+        MotionComponent,
+        AlarmComponent,
+        SafePipe
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([DeviceEffects, EventEffects, DevicesConfigEffects]),
+        AppRoutingModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatSlideToggleModule,
+        MatTableModule,
+        MatSliderModule,
+        MqttModule.forRoot(MQTT_SERVICE_OPTIONS)], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
