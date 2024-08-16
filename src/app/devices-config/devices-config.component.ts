@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {LoadDevicesConfig} from '../actions/device-config.actions';
-import {DevicesConfigState} from '../app.states';
-import {DevicesConfig} from '../model/devices-config';
-import {getDevicesConfig} from '../reducer/device-config.reducer';
+import {map, Observable} from 'rxjs';
+import {StoreService} from "../store/store.service";
+import {Device} from "../model/device";
 
 
 @Component({
@@ -14,15 +11,14 @@ import {getDevicesConfig} from '../reducer/device-config.reducer';
 })
 export class DevicesConfigComponent implements OnInit {
 
-  devicesConfig$: Observable<DevicesConfig | undefined>;
+  devices$: Observable<Device[] | undefined>;
 
-  constructor(private store: Store<DevicesConfigState>) {
-    this.devicesConfig$ = this.store.select(getDevicesConfig);
+  constructor(private storeService: StoreService) {
+    this.devices$ = this.storeService.getDevices().pipe(map(devices => devices.sort((a, b) => a?.displayName.localeCompare(b.displayName))));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(LoadDevicesConfig());
+    this.storeService.loadAllDevices();
   }
-
 
 }
