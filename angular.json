@@ -86,12 +86,12 @@
 					"builder": "angular-server-side-configuration:ngsscbuild",
 					"options": {
 						"additionalEnvironmentVariables": [],
-            "browserTarget": "home-automation:build",
+            "buildTarget": "home-automation:build",
 						"filePattern": "index.html"
 					},
 					"configurations": {
 						"production": {
-							"browserTarget": "home-automation:build:production"
+              "buildTarget": "home-automation:build:production"
 						}
 					}
 				},

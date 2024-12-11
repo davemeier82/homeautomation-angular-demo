@@ -35,7 +35,7 @@ import {IMqttServiceOptions, MqttModule} from 'ngx-mqtt';
 import {environment} from 'src/environments/environment';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: environment.mqtt.server,
+  hostname: environment.mqtt.hostname,
   port: environment.mqtt.port,
   path: '',
 };

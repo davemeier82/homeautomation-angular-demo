@@ -5,6 +5,7 @@ import {map} from 'rxjs';
 import {ChangeDimmingLevel, SwitchRelay} from '../actions/device.actions';
 import {DeviceState} from '../app.states';
 import {StoreService} from '../store/store.service';
+import {environment} from "../../environments/environment";
 
 export interface LightData {
   deviceId: string;
@@ -57,20 +58,17 @@ export class LightsComponent implements OnInit {
               } as LightData
             })
               .reduce((prev, cur) => {
-                if (prev.propType === 'Relay' && cur.propType === 'Dimmer') {
                   return {
                     label: prev.label,
-                    state: prev.state,
+                    state: prev.propType === 'Relay' ? prev.state : cur.state,
                     floor: prev.floor,
                     lastUpdated: cur.lastUpdated > prev.lastUpdated ? cur.lastUpdated : prev.lastUpdated,
                     deviceId: prev.deviceId,
                     deviceType: prev.deviceType,
-                    propType: cur.propType,
-                    propertyId: prev.propertyId,
-                    dimmingLevelInPercent: cur.dimmingLevelInPercent,
+                    propType: cur.propType === 'Dimmer' ? cur.propType : prev.propType,
+                    propertyId: prev.propType === 'Relay' ? prev.propertyId : prev.propertyId,
+                    dimmingLevelInPercent: cur.propType === 'Dimmer' ? cur.dimmingLevelInPercent : prev.dimmingLevelInPercent,
                   } as LightData
-                }
-                return cur ? cur : prev;
               })
           })
           //.reduce((acc, e) => [...acc, ...e], [])
@@ -110,6 +108,10 @@ export class LightsComponent implements OnInit {
       propertyId: light.propertyId,
       dimmingLevel
     }));
+  }
+
+  getGrafanaUrl(): string {
+    return environment.grafana.urls.lights as string;
   }
 
 }

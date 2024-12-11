@@ -1,37 +1,37 @@
 <p>Raumklima</p>
 
-<table mat-table [dataSource]="data$" class="mat-elevation-z8">  
+<table [dataSource]="data$" class="mat-elevation-z8" mat-table>
     <ng-container matColumnDef="label">
       <th mat-header-cell *matHeaderCellDef>Ort</th>
       <td mat-cell *matCellDef="let element">{{element.label}}</td>
     </ng-container>
-  
+
     <ng-container matColumnDef="temperature">
       <th mat-header-cell *matHeaderCellDef>Temperatur</th>
       <td mat-cell *matCellDef="let element">{{element.temperature ? element.temperature + '°C' : ''}}</td>
     </ng-container>
-  
-    <ng-container matColumnDef="temperatureLastUpdated">
+
+  <ng-container matColumnDef="temperatureLastUpdated">
       <th mat-header-cell *matHeaderCellDef>Temp. gemessen um</th>
       <td mat-cell *matCellDef="let element">{{element.temperature ? (element.temperatureLastUpdated | date :'d.M.yyyy, H:mm') : ''}}</td>
     </ng-container>
-  
-    <ng-container matColumnDef="humidity">
+
+  <ng-container matColumnDef="humidity">
       <th mat-header-cell *matHeaderCellDef>Luftfeuchtigkeit</th>
       <td mat-cell *matCellDef="let element">{{element.humidity ? element.humidity + '%': '' }}</td>
     </ng-container>
-  
-    <ng-container matColumnDef="humidityLastUpdated">
+
+  <ng-container matColumnDef="humidityLastUpdated">
       <th mat-header-cell *matHeaderCellDef>Feucht. gemessen um</th>
       <td mat-cell *matCellDef="let element">{{element.humidity ? (element.humidityLastUpdated | date :'d.M.yyyy, H:mm') : ''}}</td>
     </ng-container>
-      
-    <ng-container matColumnDef="co2">
+
+  <ng-container matColumnDef="co2">
       <th mat-header-cell *matHeaderCellDef>Co2</th>
       <td mat-cell *matCellDef="let element">{{element.co2 ? element.co2 + 'ppm': '' }}</td>
     </ng-container>
-  
-    <ng-container matColumnDef="co2LastUpdated">
+
+  <ng-container matColumnDef="co2LastUpdated">
       <th mat-header-cell *matHeaderCellDef>Co2 gemessen um</th>
       <td mat-cell *matCellDef="let element">{{element.co2 ? (element.co2LastUpdated | date :'d.M.yyyy, H:mm') : ''}}</td>
     </ng-container>
@@ -41,5 +41,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <iframe src="http://192.168.1.110:32090/d/rkK01PQnz/klima?orgId=2&from=now-24h&to=now" width="100%" height="100%"></iframe>
-  
+<iframe [src]="getGrafanaUrl() | safe:'resourceUrl'" height="100%" width="100%"></iframe>

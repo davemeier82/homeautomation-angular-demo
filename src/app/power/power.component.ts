@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {environment} from "../../environments/environment";
 
 
 @Component({
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
 })
 export class PowerComponent  {
 
+  getGrafanaUrl(): string {
+    return environment.grafana.urls.power as string;
+  }
 
 }

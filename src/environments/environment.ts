@@ -7,9 +7,18 @@ export const environment = {
   apiPath: 'http://localhost:8080/api/',
   cameraUrl: 'http://www.google.ch',
   mqtt: {
-		server: '192.168.1.120',
+    hostname: '192.168.0.140',
 		port: 9001
-	}
+  },
+  grafana: {
+    urls: {
+      climate: 'http://localhost:8081/climate?orgId=2&from=now-24h&to=now',
+      lights: 'http://localhost:8081/lights?orgId=2&from=now-24h&to=now',
+      motion: 'http://localhost:8081/motion?orgId=2&from=now-24h&to=now',
+      power: 'http://localhost:8081/power?orgId=2&from=now-24h&to=now',
+      windows: 'http://localhost:8081/windows?orgId=2&from=now-24h&to=now'
+    }
+  }
 };
 
 /*

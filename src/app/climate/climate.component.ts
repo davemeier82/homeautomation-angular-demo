@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable } from "rxjs";
-import { DeviceState } from '../app.states';
-import { getDevices } from '../reducer/device.reducer';
-import { StoreService } from '../store/store.service';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {map, Observable} from "rxjs";
+import {DeviceState} from '../app.states';
+import {getDevices} from '../reducer/device.reducer';
+import {StoreService} from '../store/store.service';
+import {environment} from "../../environments/environment";
 
 export interface SensorData {
   label: string;
@@ -22,10 +23,10 @@ export interface SensorData {
 })
 export class ClimateComponent implements OnInit {
 
-  data$: Observable<SensorData[]>;  
+  data$: Observable<SensorData[]>;
   displayedColumns: string[] = ['label', 'temperature', 'humidity', 'co2', 'temperatureLastUpdated', 'humidityLastUpdated', 'co2LastUpdated'];
 
-  constructor(private store: Store<DeviceState>, private storeService: StoreService) {    
+  constructor(private store: Store<DeviceState>, private storeService: StoreService) {
     this.data$ = store.select(getDevices)
     .pipe(map(devices => devices.filter(device => device.properties.findIndex(value => value.type === 'TemperatureSensor' || value.type === 'HumiditySensor' || value.type === 'Co2Sensor') != -1)
     .map(device => {
@@ -50,4 +51,7 @@ export class ClimateComponent implements OnInit {
     this.storeService.loadAllDevices();
   }
 
+  getGrafanaUrl(): string {
+    return environment.grafana.urls.climate as string;
+  }
 }

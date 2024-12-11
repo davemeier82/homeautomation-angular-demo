@@ -5,6 +5,7 @@ import {LoadAllDevices} from '../actions/device.actions';
 import {DeviceState} from '../app.states';
 import {getDevices} from '../reducer/device.reducer';
 import {StoreService} from '../store/store.service';
+import {environment} from "../../environments/environment";
 
 export interface WindowData {
   label: string;
@@ -61,6 +62,10 @@ export class WindowsComponent implements OnInit {
         this.store.dispatch(LoadAllDevices());
       }
     })
+  }
+
+  getGrafanaUrl(): string {
+    return environment.grafana.urls.windows as string;
   }
 
 }

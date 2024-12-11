@@ -1,35 +1,34 @@
 <p>Licht</p>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">  
+<table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
   <ng-container matColumnDef="label">
     <th mat-header-cell *matHeaderCellDef>Ort</th>
-    <td mat-cell *matCellDef="let element"> {{ element.label }}</td>      
+    <td *matCellDef="let element" mat-cell> {{ element.label }}</td>
   </ng-container>
 
   <ng-container matColumnDef="floor">
     <th mat-header-cell *matHeaderCellDef>Stockwerk</th>
-    <td mat-cell *matCellDef="let element"> {{ element.floor }}</td>      
+    <td *matCellDef="let element" mat-cell> {{ element.floor }}</td>
   </ng-container>
 
   <ng-container matColumnDef="state">
     <th mat-header-cell *matHeaderCellDef>Status</th>
-    <td mat-cell *matCellDef="let element"> 
-      <mat-slide-toggle [checked]="element.state" (change)="switchLight(element, $event.checked)">      
+    <td *matCellDef="let element" mat-cell>
+      <mat-slide-toggle (change)="switchLight(element, $event.checked)" [checked]="element.state">
       </mat-slide-toggle> </td>
   </ng-container>
 
   <ng-container matColumnDef="level">
     <th mat-header-cell *matHeaderCellDef>Helligkeit</th>
     <td mat-cell *matCellDef="let element">
-    <mat-slider *ngIf="element.dimmingLevelInPercent"      
-      thumbLabel      
-      tickInterval="1"
-      step="1"
-      min="0"
-      max="100"
-      aria-label="%">
-      <input #mySlider matSliderThumb [value]="element.dimmingLevelInPercent" (change)="setDimmingLevel(element, mySlider.value)">
-    </mat-slider>   </td>  
+      <mat-slider *ngIf="element.dimmingLevelInPercent"
+                  aria-label="%"
+                  max="100"
+                  min="0"
+                  step="1">
+        <input #mySlider (change)="setDimmingLevel(element, mySlider.value)" [value]="element.dimmingLevelInPercent" matSliderThumb>
+      </mat-slider>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="lastUpdated">
@@ -41,4 +40,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<iframe src="http://192.168.1.110:32090/d/t4sOJEQnz/licht?orgId=2&from=now-24h&to=now" width="100%" height="100%"></iframe>
+<iframe [src]="getGrafanaUrl() | safe:'resourceUrl'" height="100%" width="100%"></iframe>

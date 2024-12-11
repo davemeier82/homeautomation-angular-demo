@@ -13,7 +13,7 @@ import 'angular-server-side-configuration/process';
  *   booleanValue: Boolean(process.env['BOOLEAN_VALUE']),
  *   booleanValueInverted: process.env['BOOLEAN_VALUE_INVERTED'] !== 'false',
  * };
- * 
+ *
  * Please note that process.env[variable] cannot be resolved. Please directly use strings.
  */
 
@@ -22,7 +22,16 @@ export const environment = {
   apiPath: process.env['API_PATH'],
   cameraUrl: process.env['CAMERA_URL'],
   mqtt: {
-		server: '192.168.1.120',
-		port: 9001
-	}
+    hostname: process.env['MQTT_HOST_NAME'],
+    port: Number(String(process.env['MQTT_HOST_PORT']))
+  },
+  grafana: {
+    urls: {
+      climate: process.env['GRAFANA_CLIMATE_URL'],
+      lights: process.env['GRAFANA_LIGHTS_URL'],
+      motion: process.env['GRAFANA_MOTION_URL'],
+      power: process.env['GRAFANA_POWER_URL'],
+      windows: process.env['GRAFANA_WINDOWS_URL']
+    }
+  }
 };

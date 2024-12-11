@@ -3,9 +3,9 @@ import {Store} from '@ngrx/store';
 import {map, Observable} from 'rxjs';
 import {DeviceState} from '../app.states';
 import {StoreService} from '../store/store.service';
-import {SwitchRelay} from '../actions/device.actions';
+import {ChangeRollerState, SwitchRelay} from '../actions/device.actions';
 
-export interface LightData {
+export interface DevicePropertyData {
   deviceId: string;
   deviceType: string;
   propertyId: string;
@@ -19,9 +19,10 @@ export interface LightData {
 })
 export class OverviewComponent implements OnInit {
 
-  lights$: Observable<LightData[]>;
-  rollers$: Observable<string[]>;
+  lights$: Observable<DevicePropertyData[]>;
+  rollers$: Observable<DevicePropertyData[]>;
   windows$: Observable<string[]>;
+  devices$: Observable<string[]>;
 
   constructor(private storeService: StoreService, private store: Store<DeviceState>) {
 
@@ -53,7 +54,14 @@ export class OverviewComponent implements OnInit {
         device.properties
           .filter(prop => prop.type === 'Roller')
           .filter(prop => prop?.positionInPercent != null && prop.positionInPercent !== 100)
-          .map(() => device.displayName)
+          .map(prop => {
+            return {
+              deviceId: device.id,
+              deviceType: device.type,
+              propertyId: prop.id,
+              label: device.displayName
+            }
+          })
       )
         .reduce((acc, e) => [...acc, ...e], [])
         ));
@@ -66,9 +74,18 @@ export class OverviewComponent implements OnInit {
           .map(() => device.displayName)
       )
         .reduce((acc, e) => [...acc, ...e], [])));
+
+    this.devices$ = storeService.getDevicesByApplianceIdentifier('device').pipe(
+      map(devices => devices.map(device =>
+        device.properties
+          .filter(prop => prop.type === 'Relay')
+          .filter(prop => prop?.isOn)
+          .map(() => device.displayName)
+      )
+        .reduce((acc, e) => [...acc, ...e], [])));
   };
 
-  swithLightOff(light: LightData) {
+  switchLightOff(light: DevicePropertyData) {
     this.store.dispatch(SwitchRelay({
       deviceId: light.deviceId,
       deviceType: light.deviceType,
@@ -77,8 +94,16 @@ export class OverviewComponent implements OnInit {
     }));
   }
 
+  openRoller(roller: DevicePropertyData) {
+    this.store.dispatch(ChangeRollerState({
+      deviceId: roller.deviceId,
+      deviceType: roller.deviceType,
+      propertyId: roller.propertyId,
+      state: 'open'
+    }));
+  }
+
   ngOnInit(): void {
     this.storeService.loadAllDevices();
   }
-
 }

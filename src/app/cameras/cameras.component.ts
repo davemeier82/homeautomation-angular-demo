@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import {Component} from '@angular/core';
+import {environment} from 'src/environments/environment';
+
 @Component({
   selector: 'app-cameras',
   templateUrl: './cameras.component.html',
@@ -8,6 +9,6 @@ import { environment } from 'src/environments/environment';
 export class CamerasComponent {
 
  public getCameraUrl(): string {
-    return environment.cameraUrl as string;
+   return environment.cameraUrl as string;
   }
 }

@@ -2,11 +2,13 @@
 <div *ngIf="lights$ | async; let list; else noLight">
     <div *ngIf="list.length > 0; else noLight">
         <ul *ngFor="let light of list">
-            <li>{{light?.label}} <button type="button" (click)="swithLightOff(light)">Ausschalten</button></li>
+          <li>{{ light?.label }}
+            <button (click)="switchLightOff(light)" type="button">Ausschalten</button>
+          </li>
         </ul>
     </div>
 </div>
- 
+
  <ng-template #noLight>
    <p>keine</p>
  </ng-template>
@@ -15,25 +17,40 @@
 <div *ngIf="windows$ | async; let list; else noWindow">
     <div *ngIf="list.length > 0; else noWindow">
         <ul *ngFor="let window of list">
-            <li>{{window}}</li>
+          <li>{{ window }}
+          </li>
         </ul>
     </div>
 </div>
- 
- <ng-template #noWindow>
+
+<ng-template #noWindow>
    <p>keine</p>
  </ng-template>
- 
+
 <h2>Storen nicht ganz oben</h2>
 <div *ngIf="rollers$ | async; let list; else noRoller">
     <div *ngIf="list.length > 0; else noRoller">
         <ul *ngFor="let roller of list">
-            <li>{{roller}}</li>
+          <li>{{ roller?.label }}
+            <button (click)="openRoller(roller)" type="button">Öffnen</button>
+          </li>
         </ul>
     </div>
 </div>
- 
- <ng-template #noRoller>
-   <p>keine</p>
- </ng-template>
- 
+
+<ng-template #noRoller>
+  <p>keine</p>
+</ng-template>
+
+<h2>Eingeschaltete Geräte</h2>
+<div *ngIf="devices$ | async; let list; else noDevice">
+  <div *ngIf="list.length > 0; else noDevice">
+    <ul *ngFor="let device of list">
+      <li>{{ device }}</li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #noDevice>
+  <p>keine</p>
+</ng-template>

@@ -6,6 +6,7 @@ import {LoadAllDevices} from '../actions/device.actions';
 import {DeviceState} from '../app.states';
 import {getDevices} from '../reducer/device.reducer';
 import {StoreService} from '../store/store.service';
+import {environment} from "../../environments/environment";
 
 export interface MotionData {
   label: string;
@@ -57,5 +58,9 @@ export class MotionComponent  implements OnInit {
         this.store.dispatch(LoadAllDevices());
       }
     })
+  }
+
+  getGrafanaUrl(): string {
+    return environment.grafana.urls.motion as string;
   }
 }
